@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    environment {
+        DATABASE_URL = credentials('DATABASE_URL') 
+    }
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Prisma Generate') {
+            steps {
+                sh 'npx prisma generate'
+            }
+        }
+    }
+}

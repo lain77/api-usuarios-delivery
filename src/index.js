@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { env } from './config/env.js';
+import { prisma } from './config/prisma.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { connectRabbitMQ, disconnectRabbitMQ } from './services/rabbitmq.js';
 import authRoutes from './routes/auth.js';
@@ -15,7 +16,6 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-
 app.use(errorHandler);
 
 async function start() {
@@ -27,8 +27,17 @@ async function start() {
 
   const shutdown = async () => {
     console.log('Encerrando microsserviço...');
-    server.close();
+    
+    const forceExit = setTimeout(() => {
+      console.error('Shutdown travado, forçando saída');
+      process.exit(1);
+    }, 10000);
+    
+    await new Promise((resolve) => server.close(resolve));
     await disconnectRabbitMQ();
+    await prisma.$disconnect();
+    
+    clearTimeout(forceExit);
     process.exit(0);
   };
 
