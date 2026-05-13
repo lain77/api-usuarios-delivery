@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CLIENTE
+  ENTREGADOR
+  ADMIN
+}
+
+enum UserStatus {
+  ATIVO
+  INATIVO
+  SUSPENSO
+}
+
+enum CnhCategoria {
+  A
+  B
+  AB
+  C
+  D
+  E
+}
+
+enum VeiculoTipo {
+  MOTO
+  CARRO
+  BICICLETA
+  A_PE
+}
+
+enum EntregadorStatus {
+  DISPONIVEL
+  EM_ENTREGA
+  OFFLINE
+}
+
+model User {
+  user_id         Int        @id @default(autoincrement())
+  user_name       String     @db.VarChar(100)
+  user_email      String     @unique @db.VarChar(254)
+  user_password   String     @db.VarChar(255)
+  user_cpf        String     @unique @db.VarChar(11)
+  user_telefone   String?    @db.VarChar(20)
+  user_role       UserRole
+  user_status     UserStatus @default(ATIVO)
+  user_created_at DateTime   @default(now())
+  user_updated_at DateTime   @updatedAt
+
+  cliente_dados    ClienteDados?
+  entregador_dados EntregadorDados?
+  enderecos        Endereco[]
+
+  @@index([user_role, user_status])
+  @@map("user")
+}
+
+model ClienteDados {
+  cliente_user_id         Int       @id
+  cliente_data_nascimento DateTime? @db.Date
+  user User @relation(fields: [cliente_user_id], references: [user_id], onDelete: Cascade)
+
+  @@map("cliente_dados")
+}
+
+model EntregadorDados {
+  entregador_user_id       Int              @id
+  entregador_cnh_numero    String           @unique @db.VarChar(11)
+  entregador_cnh_categoria CnhCategoria
+  entregador_cnh_validade  DateTime         @db.Date
+  entregador_veiculo_tipo  VeiculoTipo
+  entregador_veiculo_placa String?          @db.VarChar(8)
+  entregador_status        EntregadorStatus @default(OFFLINE)
+  entregador_cadastrado_em DateTime         @default(now())
+  user User @relation(fields: [entregador_user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([entregador_status])
+  @@map("entregador_dados")
+}
+
+model Endereco {
+  endereco_id                Int      @id @default(autoincrement())
+  endereco_user_id           Int
+  endereco_rua_nome          String   @db.VarChar(150)
+  endereco_rua_numero        String   @db.VarChar(10)
+  endereco_rua_complemento   String?  @db.VarChar(50)
+  endereco_rua_referencia    String?  @db.VarChar(100)
+  endereco_bairro            String   @db.VarChar(80)
+  endereco_cidade            String   @db.VarChar(80)
+  endereco_uf                String   @db.Char(2)
+  endereco_cep               String   @db.VarChar(9)
+  endereco_instrucao_entrega String?  @db.VarChar(255)
+  endereco_principal         Boolean  @default(false)
+  endereco_created_at        DateTime @default(now())
+  user User @relation(fields: [endereco_user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([endereco_user_id])
+  @@index([endereco_uf, endereco_cidade])
+  @@map("endereco")
+}
