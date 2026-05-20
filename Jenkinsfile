@@ -13,6 +13,12 @@ pipeline {
             steps {
                 sh 'npx prisma generate'
             }
+
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t delivery-usuario:${BUILD_NUMBER} .'
+            }
         }
     }
 }
