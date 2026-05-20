@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api-usuarios:
+    build: .
+    container_name: delivery-usuario
+    ports:
+      - "9525:9525"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=9525
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=7d
+      - BCRYPT_ROUNDS=10
+      - RABBITMQ_URL=${RABBITMQ_URL}
+      - NODE_ENV=production
+    restart: unless-stopped
