@@ -1,17 +1,23 @@
-version: '3.8'
-
+version: "3.9"
 services:
-  api-usuarios:
-    build: .
+  usuario:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: delivery-usuario
-    ports:
-      - "9525:9525"
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - PORT=9525
-      - JWT_SECRET=${JWT_SECRET}
-      - JWT_EXPIRES_IN=7d
-      - BCRYPT_ROUNDS=10
-      - RABBITMQ_URL=${RABBITMQ_URL}
-      - NODE_ENV=production
     restart: unless-stopped
+    ports:
+      - "9525:9525" # Porta pública do microsserviço de Usuário
+    environment:
+      PORT: 9525
+      NODE_ENV: production
+      JWT_EXPIRES_IN: 7d
+      BCRYPT_ROUNDS: 10
+      INFISICAL_CLIENT_ID: ""
+      INFISICAL_CLIENT_SECRET: ""
+      INFISICAL_PROJECT_ID: ""
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
