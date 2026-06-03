@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   usuario:
     build:
@@ -13,8 +12,8 @@ services:
       NODE_ENV: production
       JWT_EXPIRES_IN: 7d
       BCRYPT_ROUNDS: 10
-      INFISICAL_CLIENT_ID: "6cfd96d7-2f68-4d9b-bec4-7247f988ec69"
-      INFISICAL_CLIENT_SECRET: "ce31d6fdf3f4c69da00c399bc6053c17650890f07542c5bc1bb6269726a6be38"
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: "6cfd96d7-2f68-4d9b-bec4-7247f988ec69"
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: "ce31d6fdf3f4c69da00c399bc6053c17650890f07542c5bc1bb6269726a6be38"
       INFISICAL_PROJECT_ID: "21b48abe-f0db-43d3-a9d9-5ae7d50a826a"
     logging:
       driver: "json-file"
