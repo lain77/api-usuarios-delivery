@@ -21,6 +21,11 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y openssl wget \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y curl bash \
+    && curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.deb.sh' | bash \
+    && apt-get update && apt-get install -y infisical \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/prisma ./prisma
