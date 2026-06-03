@@ -1,4 +1,4 @@
-
+# ─── Estágio de build ────────────────────────────────────────────────────────
 FROM node:22-slim AS builder
 WORKDIR /app
 
@@ -15,16 +15,14 @@ RUN npx prisma generate
 
 RUN npm prune --omit=dev
 
+# ─── Imagem final ────────────────────────────────────────────────────────────
 FROM node:22-slim
 WORKDIR /app
 
+# Dependências de runtime + Infisical CLI (via npm — mais confiável)
 RUN apt-get update && apt-get install -y openssl wget \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y curl bash \
-    && curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.deb.sh' | bash \
-    && apt-get update && apt-get install -y infisical \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g @infisical/cli
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
