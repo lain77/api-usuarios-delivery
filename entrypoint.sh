@@ -1,11 +1,14 @@
 #!/bin/sh
 set -e
 
-echo "Carregando segredos do Infisical..."
-export $(infisical secrets --projectId="$INFISICAL_PROJECT_ID" --env=prod --plain --silent | xargs)
-
-echo "Aplicando migrations..."
-npx prisma migrate deploy
+echo "Aplicando migrations com segredos do Infisical..."
+infisical run \
+  --projectId="$INFISICAL_PROJECT_ID" \
+  --env=prod \
+  -- npx prisma migrate deploy
 
 echo "Iniciando microsserviço..."
-exec node src/index.js
+exec infisical run \
+  --projectId="$INFISICAL_PROJECT_ID" \
+  --env=prod \
+  -- node src/index.js
