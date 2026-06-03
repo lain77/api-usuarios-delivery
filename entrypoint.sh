@@ -2,11 +2,13 @@
 set -e
 
 echo "Autenticando no Infisical..."
-export INFISICAL_TOKEN=$(infisical login \
+INFISICAL_TOKEN=$(infisical login \
   --method=universal-auth \
   --client-id="$INFISICAL_UNIVERSAL_AUTH_CLIENT_ID" \
   --client-secret="$INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET" \
   --plain --silent)
+
+export INFISICAL_TOKEN
 
 echo "Aplicando migrations com segredos do Infisical..."
 infisical run \
