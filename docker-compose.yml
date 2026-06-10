@@ -6,15 +6,15 @@ services:
     container_name: delivery-usuario
     restart: unless-stopped
     ports:
-      - "9525:9525" # Porta pública do microsserviço de Usuário
+      - "9525:9525"
     environment:
       PORT: 9525
       NODE_ENV: production
       JWT_EXPIRES_IN: 7d
       BCRYPT_ROUNDS: 10
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: "..."
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: "..."
-      INFISICAL_PROJECT_ID: "..."
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_ID}
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET}
+      INFISICAL_PROJECT_ID: ${INFISICAL_PROJECT_ID}
     logging:
       driver: "json-file"
       options:
