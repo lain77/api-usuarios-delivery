@@ -2,13 +2,14 @@
   "name": "api-usuarios-delivery",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "infisical run --env=dev -- nodemon src/index.js",
+    "start": "infisical run -- node src/index.js",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:studio": "prisma studio"
+    "prisma:migrate": "infisical run --env=dev -- prisma migrate dev",
+    "prisma:deploy": "infisical run --env=prod -- prisma migrate deploy",
+    "prisma:studio": "infisical run --env=dev -- prisma studio"
   },
   "keywords": [],
   "author": "",
