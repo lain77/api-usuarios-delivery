@@ -3,6 +3,12 @@ pipeline {
 
     environment {
         DOCKER_BUILDKIT = '1'
+        // Credenciais de bootstrap do Infisical, vindas do Jenkins Credentials Store.
+        // NÃO ficam no repo. A CLI do Infisical (dentro do container) lê destas vars
+        // para autenticar e injetar os segredos reais (DATABASE_URL, JWT_SECRET, etc).
+        INFISICAL_UNIVERSAL_AUTH_CLIENT_ID     = credentials('infisical-client-id')
+        INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = credentials('infisical-client-secret')
+        INFISICAL_PROJECT_ID                   = credentials('infisical-project-id')
     }
 
     stages {
@@ -21,27 +27,16 @@ pipeline {
             }
         }
 
-        stage('Instalar Dependências') {
-            steps {
-                sh '''
-                    rm -rf node_modules
-                    rm -rf package-lock.json
-                    npm install
-                    npx prisma generate
-                '''
-            }
-        }
-
         stage('Build Docker') {
             steps {
-                sh '''
-                    docker compose build --no-cache
-                '''
+                sh 'docker compose build --no-cache'
             }
         }
 
         stage('Deploy') {
             steps {
+                // As três credenciais do Infisical já estão no ambiente (bloco environment),
+                // então o docker compose as repassa ao container via ${...} no compose.
                 sh '''
                     docker compose down --remove-orphans
                     docker compose up -d
