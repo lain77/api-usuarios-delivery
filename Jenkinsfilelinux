@@ -3,16 +3,10 @@ pipeline {
 
     environment {
         DOCKER_BUILDKIT = '1'
-        // Credenciais de bootstrap do Infisical, vindas do Jenkins Credentials Store.
-        // NÃO ficam no repo. A CLI do Infisical (dentro do container) lê destas vars
-        // para autenticar e injetar os segredos reais (DATABASE_URL, JWT_SECRET, etc).
-        INFISICAL_UNIVERSAL_AUTH_CLIENT_ID     = credentials('infisical-client-id')
-        INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET = credentials('infisical-client-secret')
-        INFISICAL_PROJECT_ID                   = credentials('infisical-project-id')
     }
 
     stages {
-        stage('Verificar Repositório') {
+        stage('Verificar Repositorio') {
             steps {
                 checkout([
                     $class: 'GitSCM',
@@ -35,8 +29,6 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // As três credenciais do Infisical já estão no ambiente (bloco environment),
-                // então o docker compose as repassa ao container via ${...} no compose.
                 sh '''
                     docker compose down --remove-orphans
                     docker compose up -d
@@ -49,17 +41,20 @@ pipeline {
                 sh 'docker ps'
             }
         }
+
+        stage('Limpeza') {
+            steps {
+                sh 'docker image prune -f || true'
+            }
+        }
     }
 
     post {
         success {
-            echo 'Deploy do microsserviço Usuário realizado com sucesso no Yacht (Linux)!'
+            echo 'Deploy do microsservico Usuario realizado com sucesso no Yacht (Linux)!'
         }
         failure {
-            echo 'Houve um erro durante o deploy do microsserviço Usuário.'
-        }
-        always {
-            sh 'docker image prune -f || true'
+            echo 'Houve um erro durante o deploy do microsservico Usuario.'
         }
     }
 }
