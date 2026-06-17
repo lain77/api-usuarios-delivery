@@ -12,9 +12,10 @@ services:
       NODE_ENV: production
       JWT_EXPIRES_IN: 7d
       BCRYPT_ROUNDS: 10
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_ID}
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET}
-      INFISICAL_PROJECT_ID: ${INFISICAL_PROJECT_ID}
+    # As três credenciais do Infisical vêm do .env (não commitado).
+    # O Compose injeta o conteúdo do .env no container.
+    env_file:
+      - .env
     logging:
       driver: "json-file"
       options:
