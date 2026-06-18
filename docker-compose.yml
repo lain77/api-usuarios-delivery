@@ -16,7 +16,7 @@ services:
       # A CLI do Infisical le automaticamente destas variaveis para autenticar
       # e puxar os segredos da nuvem (DATABASE_URL, JWT_SECRET, RABBITMQ_URL).
       INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: "6cfd96d7-2f68-4d9b-bec4-7247f988ec69"
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: "1d3bfb8c676c918215c52660340b72453e0d61f1c05dac35192d6952a9d1ef77"
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: "4a75753bd98aca42f8f70c9b2c53b2aaedc432fd37e2117ee892835c2a6f7c80"
       INFISICAL_PROJECT_ID: "72872433-2578-4da1-8f87-7e54845ecf8d"
     logging:
       driver: "json-file"
