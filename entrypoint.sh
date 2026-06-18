@@ -1,20 +1,21 @@
 #!/bin/sh
 set -e
 
-# A CLI do Infisical lê automaticamente as credenciais destas variáveis de ambiente:
+# A CLI do Infisical le as credenciais automaticamente destas variaveis de ambiente
+# (definidas no docker-compose.yml):
 #   INFISICAL_UNIVERSAL_AUTH_CLIENT_ID
 #   INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET
-# (injetadas pelo docker-compose a partir do .env, que NÃO é commitado)
-# Por isso não é necessário um "infisical login" separado.
+# Por isso nao e necessario "infisical login" separado.
+# Usamos "npx infisical" para nao depender de instalacao global.
 
 echo "Aplicando migrations com segredos do Infisical..."
-infisical run \
+npx infisical run \
   --projectId="$INFISICAL_PROJECT_ID" \
   --env=prod \
   -- npx prisma migrate deploy
 
-echo "Iniciando microsserviço..."
-exec infisical run \
+echo "Iniciando microsservico..."
+exec npx infisical run \
   --projectId="$INFISICAL_PROJECT_ID" \
   --env=prod \
   -- node src/index.js
