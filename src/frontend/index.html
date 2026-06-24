@@ -31,14 +31,12 @@
       font-weight: 300;
     }
 
-    /* ── Layout ── */
     .app {
       display: grid;
       grid-template-columns: 1fr 1fr;
       min-height: 100vh;
     }
 
-    /* ── Left panel ── */
     .panel-left {
       position: relative;
       background: #2a2420;
@@ -84,9 +82,7 @@
       letter-spacing: .5px;
     }
 
-    .hero {
-      position: relative;
-    }
+    .hero { position: relative; }
 
     .hero-label {
       font-size: 11px;
@@ -108,10 +104,7 @@
       color: #f0ece4;
     }
 
-    .hero h1 em {
-      font-style: italic;
-      color: #c9a97a;
-    }
+    .hero h1 em { font-style: italic; color: #c9a97a; }
 
     .hero p {
       color: #9e9488;
@@ -121,11 +114,7 @@
       max-width: 320px;
     }
 
-    .stats {
-      display: flex;
-      gap: 36px;
-      position: relative;
-    }
+    .stats { display: flex; gap: 36px; position: relative; }
 
     .stat-value {
       font-family: 'Cormorant Garamond', serif;
@@ -144,7 +133,6 @@
       text-transform: uppercase;
     }
 
-    /* ── Right panel ── */
     .panel-right {
       display: flex;
       align-items: center;
@@ -152,12 +140,8 @@
       padding: 40px 24px;
     }
 
-    .card {
-      width: 100%;
-      max-width: 420px;
-    }
+    .card { width: 100%; max-width: 440px; }
 
-    /* ── Tabs ── */
     .tabs {
       display: flex;
       background: var(--surface);
@@ -182,12 +166,8 @@
       transition: all .2s;
     }
 
-    .tab.active {
-      background: var(--accent);
-      color: #fff;
-    }
+    .tab.active { background: var(--accent); color: #fff; }
 
-    /* ── Forms ── */
     .form { display: none; flex-direction: column; gap: 16px; }
     .form.active { display: flex; }
 
@@ -230,17 +210,26 @@
       -webkit-appearance: none;
     }
 
-    input:focus, select:focus {
-      border-color: var(--accent);
-    }
-
+    input:focus, select:focus { border-color: var(--accent); }
     input::placeholder { color: var(--muted); }
 
     .field { display: flex; flex-direction: column; }
-
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-    /* ── Button ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .entregador-fields { display: none; flex-direction: column; gap: 16px; }
+    .entregador-fields.show { display: flex; }
+
     .btn {
       padding: 13px;
       background: var(--accent);
@@ -260,7 +249,6 @@
     .btn:active { transform: scale(.98); }
     .btn:disabled { opacity: .5; cursor: not-allowed; }
 
-    /* ── Alert ── */
     .alert {
       padding: 12px 14px;
       border-radius: var(--radius);
@@ -271,7 +259,6 @@
     .alert.success { background: rgba(74,124,89,.1);  border: 1px solid rgba(74,124,89,.3);  color: var(--success); display: block; }
     .alert.error   { background: rgba(158,58,56,.08); border: 1px solid rgba(158,58,56,.25); color: var(--error);   display: block; }
 
-    /* ── Dashboard ── */
     .dashboard { display: none; }
     .dashboard.active { display: block; }
 
@@ -291,10 +278,7 @@
 
     .dash-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
 
-    .btn-sm {
-      padding: 8px 14px;
-      font-size: 13px;
-    }
+    .btn-sm { padding: 8px 14px; font-size: 13px; }
 
     .btn-ghost {
       background: transparent;
@@ -340,11 +324,7 @@
       font-size: 20px;
     }
 
-    .profile-role {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    .profile-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     .badge {
       display: inline-block;
@@ -355,17 +335,11 @@
       letter-spacing: .3px;
     }
 
-    .badge-customer  { background: rgba(139,111,78,.15); color: var(--accent); }
-    .badge-driver    { background: rgba(74,124,89,.15);  color: var(--success); }
-    .badge-admin     { background: rgba(110,99,140,.18); color: #6e638c; }
-    .badge-merchant  { background: rgba(176,141,87,.18); color: #9a7b45; }
+    .badge-cliente    { background: rgba(139,111,78,.15); color: var(--accent); }
+    .badge-entregador { background: rgba(74,124,89,.15);  color: var(--success); }
+    .badge-admin      { background: rgba(110,99,140,.18); color: #6e638c; }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .info-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
     .info-value { font-size: 14px; font-weight: 400; }
 
@@ -387,14 +361,8 @@
       line-height: 1.5;
     }
 
-    /* ── Divider ── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 4px 0;
-    }
+    .divider { height: 1px; background: var(--border); margin: 4px 0; }
 
-    /* ── Mobile ── */
     @media (max-width: 768px) {
       .app { grid-template-columns: 1fr; }
       .panel-left { display: none; }
@@ -406,7 +374,7 @@
 
 <div class="app">
 
-  <!-- ── Left panel ── -->
+  <!-- Left panel -->
   <div class="panel-left">
     <div class="brand">
       <div class="brand-icon">
@@ -420,7 +388,7 @@
     <div class="hero">
       <div class="hero-label">Plataforma de Delivery</div>
       <h1>Gerencie<br/>usuários com<br/><em>precisão.</em></h1>
-      <p>API RESTful para cadastro e autenticação de clientes, entregadores e estabelecimentos — construída com Express, Prisma e JWT.</p>
+      <p>API RESTful para cadastro e autenticação de clientes e entregadores — construída com Express, Prisma e JWT.</p>
     </div>
 
     <div class="stats">
@@ -439,11 +407,10 @@
     </div>
   </div>
 
-  <!-- ── Right panel ── -->
+  <!-- Right panel -->
   <div class="panel-right">
     <div class="card">
 
-      <!-- Auth views -->
       <div id="auth-view">
         <div class="tabs">
           <button class="tab active" onclick="switchTab('login')">Entrar</button>
@@ -479,14 +446,27 @@
             <div class="form-subtitle">Preencha os dados para se registrar</div>
           </div>
 
+          <div class="field">
+            <label>Tipo de conta</label>
+            <select id="reg-role" onchange="toggleEntregador()">
+              <option value="CLIENTE">Cliente</option>
+              <option value="ENTREGADOR">Entregador</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Nome completo</label>
+            <input id="reg-name" type="text" placeholder="João Silva" />
+          </div>
+
           <div class="row">
             <div class="field">
-              <label>Nome</label>
-              <input id="reg-name" type="text" placeholder="João" />
+              <label>CPF</label>
+              <input id="reg-cpf" type="text" placeholder="000.000.000-00" />
             </div>
             <div class="field">
-              <label>Sobrenome</label>
-              <input id="reg-lastname" type="text" placeholder="Silva" />
+              <label>Telefone</label>
+              <input id="reg-phone" type="tel" placeholder="(11) 99999-9999" />
             </div>
           </div>
 
@@ -496,22 +476,57 @@
           </div>
 
           <div class="field">
-            <label>Telefone</label>
-            <input id="reg-phone" type="tel" placeholder="(11) 99999-9999" />
-          </div>
-
-          <div class="field">
-            <label>Tipo de conta</label>
-            <select id="reg-role">
-              <option value="CUSTOMER">Cliente</option>
-              <option value="DRIVER">Entregador</option>
-              <option value="MERCHANT">Estabelecimento</option>
-            </select>
-          </div>
-
-          <div class="field">
             <label>Senha</label>
             <input id="reg-password" type="password" placeholder="Mínimo 8 caracteres" />
+          </div>
+
+          <!-- Campo só do cliente -->
+          <div class="field" id="cliente-field">
+            <label>Data de nascimento <span style="text-transform:none;letter-spacing:0;">(opcional)</span></label>
+            <input id="reg-nascimento" type="date" />
+          </div>
+
+          <!-- Campos só do entregador -->
+          <div class="entregador-fields" id="entregador-fields">
+            <div class="section-label">Dados do entregador</div>
+
+            <div class="row">
+              <div class="field">
+                <label>Número da CNH</label>
+                <input id="reg-cnh-numero" type="text" placeholder="00000000000" />
+              </div>
+              <div class="field">
+                <label>Categoria</label>
+                <select id="reg-cnh-categoria">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="AB">AB</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Validade da CNH</label>
+              <input id="reg-cnh-validade" type="date" />
+            </div>
+
+            <div class="row">
+              <div class="field">
+                <label>Tipo de veículo</label>
+                <select id="reg-veiculo-tipo">
+                  <option value="MOTO">Moto</option>
+                  <option value="CARRO">Carro</option>
+                  <option value="BICICLETA">Bicicleta</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Placa</label>
+                <input id="reg-veiculo-placa" type="text" placeholder="ABC1D23" />
+              </div>
+            </div>
           </div>
 
           <div id="register-alert" class="alert"></div>
@@ -520,7 +535,7 @@
         </div>
       </div>
 
-      <!-- Dashboard view -->
+      <!-- Dashboard -->
       <div id="dashboard-view" class="dashboard">
         <div class="dash-header">
           <div>
@@ -544,6 +559,10 @@
 
           <div class="info-grid">
             <div class="info-item">
+              <div class="info-label">CPF</div>
+              <div class="info-value" id="dash-cpf">—</div>
+            </div>
+            <div class="info-item">
               <div class="info-label">Telefone</div>
               <div class="info-value" id="dash-phone">—</div>
             </div>
@@ -554,10 +573,6 @@
             <div class="info-item">
               <div class="info-label">ID</div>
               <div class="info-value" id="dash-id" style="font-size:12px;font-family:monospace;">—</div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">Criado em</div>
-              <div class="info-value" id="dash-created">—</div>
             </div>
           </div>
 
@@ -575,18 +590,16 @@
 </div>
 
 <script>
-  // ── Config ──────────────────────────────────────────
-  // Troque pela URL da sua API em produção
+  // Config
   const BASE_URL = 'http://localhost:3000';
 
-  // ── State ───────────────────────────────────────────
+  // State
   let token = localStorage.getItem('delivery_token') || null;
   let user  = JSON.parse(localStorage.getItem('delivery_user') || 'null');
 
-  // ── Init ────────────────────────────────────────────
   if (token && user) showDashboard(user, token);
 
-  // ── Tabs ────────────────────────────────────────────
+  // Tabs
   function switchTab(tab) {
     document.querySelectorAll('.tab').forEach((t, i) => {
       t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
@@ -597,11 +610,19 @@
     clearAlert('register-alert');
   }
 
-  // ── Alert helpers ───────────────────────────────────
+  // Toggle campos entregador/cliente
+  function toggleEntregador() {
+    const role = document.getElementById('reg-role').value;
+    const isEntregador = role === 'ENTREGADOR';
+    document.getElementById('entregador-fields').classList.toggle('show', isEntregador);
+    document.getElementById('cliente-field').style.display = isEntregador ? 'none' : 'flex';
+  }
+
+  // Alert helpers
   function showAlert(id, msg, type) {
     const el = document.getElementById(id);
     el.textContent = msg;
-    el.className = `alert ${type}`;
+    el.className = 'alert ' + type;
   }
 
   function clearAlert(id) {
@@ -610,7 +631,7 @@
     el.textContent = '';
   }
 
-  // ── Login ───────────────────────────────────────────
+  // Login
   async function handleLogin() {
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
@@ -622,16 +643,16 @@
     clearAlert('login-alert');
 
     try {
-      const res  = await fetch(`${BASE_URL}/auth/login`, {
+      const res = await fetch(BASE_URL + '/auth/login', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ email, password }),
+        body:    JSON.stringify({ user_email: email, user_password: password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        return showAlert('login-alert', data.message || 'Credenciais inválidas.', 'error');
+        return showAlert('login-alert', data.error || data.message || 'Credenciais inválidas.', 'error');
       }
 
       token = data.token;
@@ -645,36 +666,72 @@
     }
   }
 
-  // ── Register ─────────────────────────────────────────
+  // Register
   async function handleRegister() {
-    const name     = document.getElementById('reg-name').value.trim();
-    const lastName = document.getElementById('reg-lastname').value.trim();
-    const email    = document.getElementById('reg-email').value.trim();
-    const phone    = document.getElementById('reg-phone').value.trim();
     const role     = document.getElementById('reg-role').value;
+    const name     = document.getElementById('reg-name').value.trim();
+    const cpf      = document.getElementById('reg-cpf').value.trim();
+    const phone    = document.getElementById('reg-phone').value.trim();
+    const email    = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
 
-    if (!name || !email || !password) {
-      return showAlert('register-alert', 'Nome, e-mail e senha são obrigatórios.', 'error');
+    if (!name || !cpf || !email || !password) {
+      return showAlert('register-alert', 'Nome, CPF, e-mail e senha são obrigatórios.', 'error');
     }
 
     if (password.length < 8) {
       return showAlert('register-alert', 'A senha deve ter no mínimo 8 caracteres.', 'error');
     }
 
+    const body = {
+      user_name:     name,
+      user_email:    email,
+      user_password: password,
+      user_cpf:      cpf,
+      user_telefone: phone,
+    };
+
+    let endpoint;
+
+    if (role === 'ENTREGADOR') {
+      endpoint = '/auth/registro/entregador';
+
+      const cnhNumero    = document.getElementById('reg-cnh-numero').value.trim();
+      const cnhCategoria = document.getElementById('reg-cnh-categoria').value;
+      const cnhValidade  = document.getElementById('reg-cnh-validade').value;
+      const veiculoTipo  = document.getElementById('reg-veiculo-tipo').value;
+      const veiculoPlaca = document.getElementById('reg-veiculo-placa').value.trim();
+
+      if (!cnhNumero || !cnhValidade || !veiculoPlaca) {
+        return showAlert('register-alert', 'Preencha CNH, validade e placa do veículo.', 'error');
+      }
+
+      body.entregador_cnh_numero    = cnhNumero;
+      body.entregador_cnh_categoria = cnhCategoria;
+      body.entregador_cnh_validade  = cnhValidade;
+      body.entregador_veiculo_tipo  = veiculoTipo;
+      body.entregador_veiculo_placa = veiculoPlaca;
+
+    } else {
+      endpoint = '/auth/registro/cliente';
+
+      const nascimento = document.getElementById('reg-nascimento').value;
+      if (nascimento) body.cliente_data_nascimento = nascimento;
+    }
+
     clearAlert('register-alert');
 
     try {
-      const res  = await fetch(`${BASE_URL}/auth/register`, {
+      const res = await fetch(BASE_URL + endpoint, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ name, lastName, email, phone, role, password }),
+        body:    JSON.stringify(body),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        return showAlert('register-alert', data.message || 'Erro ao criar conta.', 'error');
+        return showAlert('register-alert', data.error || data.message || 'Erro ao criar conta.', 'error');
       }
 
       showAlert('register-alert', 'Conta criada com sucesso! Faça login para continuar.', 'success');
@@ -685,43 +742,38 @@
     }
   }
 
-  // ── Dashboard ────────────────────────────────────────
+  // Dashboard
   function showDashboard(u, tok) {
     document.getElementById('auth-view').style.display = 'none';
     document.getElementById('dashboard-view').classList.add('active');
 
-    const fullName = [u.name, u.lastName].filter(Boolean).join(' ') || u.email || '?';
+    const fullName = u.user_name || u.user_email || '?';
     const initials = fullName.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
 
     document.getElementById('dash-avatar').textContent = initials;
     document.getElementById('dash-name').textContent   = fullName;
-    document.getElementById('dash-email').textContent  = u.email || '—';
-    document.getElementById('dash-phone').textContent  = u.phone || '—';
-    document.getElementById('dash-id').textContent     = u.id || '—';
+    document.getElementById('dash-email').textContent  = u.user_email || '—';
+    document.getElementById('dash-cpf').textContent    = u.user_cpf || '—';
+    document.getElementById('dash-phone').textContent  = u.user_telefone || '—';
+    document.getElementById('dash-id').textContent     = u.user_id || '—';
 
     const roleMap = {
-      CUSTOMER: 'Cliente',
-      DRIVER:   'Entregador',
-      MERCHANT: 'Estabelecimento',
-      ADMIN:    'Administrador',
+      CLIENTE:    'Cliente',
+      ENTREGADOR: 'Entregador',
+      ADMIN:      'Administrador',
     };
-    const roleKey = (u.role || '').toUpperCase();
-    document.getElementById('dash-role').textContent = roleMap[roleKey] || u.role || '—';
+    const roleKey = (u.user_role || '').toUpperCase();
+    document.getElementById('dash-role').textContent = roleMap[roleKey] || u.user_role || '—';
 
     const badgeEl = document.getElementById('dash-badge');
-    const badgeClass = { CUSTOMER: 'badge-customer', DRIVER: 'badge-driver', MERCHANT: 'badge-merchant', ADMIN: 'badge-admin' }[roleKey] || 'badge-customer';
-    badgeEl.textContent = roleMap[roleKey] || u.role || '—';
-    badgeEl.className = `badge ${badgeClass}`;
+    const badgeClass = { CLIENTE: 'badge-cliente', ENTREGADOR: 'badge-entregador', ADMIN: 'badge-admin' }[roleKey] || 'badge-cliente';
+    badgeEl.textContent = roleMap[roleKey] || u.user_role || '—';
+    badgeEl.className = 'badge ' + badgeClass;
 
-    if (u.createdAt) {
-      document.getElementById('dash-created').textContent = new Date(u.createdAt).toLocaleDateString('pt-BR');
-    }
-
-    // Show token truncated
     document.getElementById('dash-token').textContent = tok ? tok.slice(0, 80) + '…' : '—';
   }
 
-  // ── Logout ───────────────────────────────────────────
+  // Logout
   function handleLogout() {
     localStorage.removeItem('delivery_token');
     localStorage.removeItem('delivery_user');
@@ -732,7 +784,7 @@
     switchTab('login');
   }
 
-  // ── Enter key support ────────────────────────────────
+  // Enter key support
   document.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
     const loginActive = document.getElementById('form-login').classList.contains('active');
