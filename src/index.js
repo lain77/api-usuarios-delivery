@@ -6,7 +6,10 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { connectRabbitMQ, disconnectRabbitMQ } from './services/rabbitmq.js';
 import authRoutes from './routes/auth.js';
 import healthRoutes from './routes/health.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 app.use(cors());
