@@ -590,16 +590,25 @@
 </div>
 
 <script>
-  // Config
-  const BASE_URL = 'http://localhost:3000';
+  // ── Config ──────────────────────────────────────────
+  // Detecta o prefixo automaticamente: funciona local (localhost:3000)
+  // e no servidor SENAC (.../delivery/usuario). Remove o sufixo /login
+  // ou /cadastro da URL atual para encontrar a raiz da API.
+  const BASE_URL = window.location.origin +
+    window.location.pathname
+      .replace(/\/(login|cadastro)\/?$/, '')
+      .replace(/\/$/, '');
 
-  // State
+  // ── State ───────────────────────────────────────────
   let token = localStorage.getItem('delivery_token') || null;
   let user  = JSON.parse(localStorage.getItem('delivery_user') || 'null');
 
   if (token && user) showDashboard(user, token);
 
-  // Tabs
+  // Se a URL terminar em /cadastro, abre na aba de cadastro
+  if (/\/cadastro\/?$/.test(window.location.pathname)) switchTab('register');
+
+  // ── Tabs ────────────────────────────────────────────
   function switchTab(tab) {
     document.querySelectorAll('.tab').forEach((t, i) => {
       t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
@@ -610,7 +619,7 @@
     clearAlert('register-alert');
   }
 
-  // Toggle campos entregador/cliente
+  // ── Toggle campos entregador/cliente ─────────────────
   function toggleEntregador() {
     const role = document.getElementById('reg-role').value;
     const isEntregador = role === 'ENTREGADOR';
@@ -618,7 +627,7 @@
     document.getElementById('cliente-field').style.display = isEntregador ? 'none' : 'flex';
   }
 
-  // Alert helpers
+  // ── Alert helpers ───────────────────────────────────
   function showAlert(id, msg, type) {
     const el = document.getElementById(id);
     el.textContent = msg;
@@ -631,7 +640,7 @@
     el.textContent = '';
   }
 
-  // Login
+  // ── Login ───────────────────────────────────────────
   async function handleLogin() {
     const email    = document.getElementById('login-email').value.trim();
     const password = document.getElementById('login-password').value;
@@ -666,7 +675,7 @@
     }
   }
 
-  // Register
+  // ── Register ─────────────────────────────────────────
   async function handleRegister() {
     const role     = document.getElementById('reg-role').value;
     const name     = document.getElementById('reg-name').value.trim();
@@ -742,7 +751,7 @@
     }
   }
 
-  // Dashboard
+  // ── Dashboard ────────────────────────────────────────
   function showDashboard(u, tok) {
     document.getElementById('auth-view').style.display = 'none';
     document.getElementById('dashboard-view').classList.add('active');
@@ -773,7 +782,7 @@
     document.getElementById('dash-token').textContent = tok ? tok.slice(0, 80) + '…' : '—';
   }
 
-  // Logout
+  // ── Logout ───────────────────────────────────────────
   function handleLogout() {
     localStorage.removeItem('delivery_token');
     localStorage.removeItem('delivery_user');
@@ -784,7 +793,7 @@
     switchTab('login');
   }
 
-  // Enter key support
+  // ── Enter key support ────────────────────────────────
   document.addEventListener('keydown', e => {
     if (e.key !== 'Enter') return;
     const loginActive = document.getElementById('form-login').classList.contains('active');
