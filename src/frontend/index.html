@@ -173,10 +173,11 @@
       border: none;
       background: transparent;
       color: var(--muted);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Jost', sans-serif;
       font-size: 14px;
       font-weight: 500;
-      border-radius: 8px;
+      letter-spacing: .3px;
+      border-radius: var(--radius);
       cursor: pointer;
       transition: all .2s;
     }
@@ -191,11 +192,11 @@
     .form.active { display: flex; }
 
     .form-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -.4px;
-      margin-bottom: 4px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -.3px;
+      margin-bottom: 2px;
     }
 
     .form-subtitle {
@@ -205,13 +206,13 @@
     }
 
     label {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 400;
       color: var(--muted);
       display: block;
       margin-bottom: 6px;
       text-transform: uppercase;
-      letter-spacing: .8px;
+      letter-spacing: 1.2px;
     }
 
     input, select {
@@ -219,10 +220,11 @@
       padding: 12px 14px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Jost', sans-serif;
       font-size: 14px;
+      font-weight: 300;
       outline: none;
       transition: border-color .2s;
       -webkit-appearance: none;
@@ -243,11 +245,12 @@
       padding: 13px;
       background: var(--accent);
       border: none;
-      border-radius: 8px;
+      border-radius: var(--radius);
       color: #fff;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Jost', sans-serif;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
+      letter-spacing: .5px;
       cursor: pointer;
       transition: background .2s, transform .1s;
       margin-top: 4px;
@@ -260,13 +263,13 @@
     /* ── Alert ── */
     .alert {
       padding: 12px 14px;
-      border-radius: 8px;
+      border-radius: var(--radius);
       font-size: 13px;
       display: none;
     }
 
-    .alert.success { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.3); color: var(--success); display: block; }
-    .alert.error   { background: rgba(239,68,68,.1);  border: 1px solid rgba(239,68,68,.3);  color: var(--error);   display: block; }
+    .alert.success { background: rgba(74,124,89,.1);  border: 1px solid rgba(74,124,89,.3);  color: var(--success); display: block; }
+    .alert.error   { background: rgba(158,58,56,.08); border: 1px solid rgba(158,58,56,.25); color: var(--error);   display: block; }
 
     /* ── Dashboard ── */
     .dashboard { display: none; }
@@ -280,9 +283,10 @@
     }
 
     .dash-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -.3px;
     }
 
     .dash-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
@@ -323,17 +327,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
       color: #fff;
       flex-shrink: 0;
     }
 
     .profile-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 17px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 20px;
     }
 
     .profile-role {
@@ -347,13 +351,14 @@
       padding: 3px 10px;
       border-radius: 20px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 500;
+      letter-spacing: .3px;
     }
 
-    .badge-customer  { background: rgba(255,85,51,.15); color: var(--accent); }
-    .badge-driver    { background: rgba(34,197,94,.15); color: var(--success); }
-    .badge-admin     { background: rgba(139,92,246,.15); color: #a78bfa; }
-    .badge-merchant  { background: rgba(234,179,8,.15); color: #fbbf24; }
+    .badge-customer  { background: rgba(139,111,78,.15); color: var(--accent); }
+    .badge-driver    { background: rgba(74,124,89,.15);  color: var(--success); }
+    .badge-admin     { background: rgba(110,99,140,.18); color: #6e638c; }
+    .badge-merchant  { background: rgba(176,141,87,.18); color: #9a7b45; }
 
     .info-grid {
       display: grid;
@@ -361,20 +366,18 @@
       gap: 12px;
     }
 
-    .info-item {}
-
-    .info-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px; }
-    .info-value { font-size: 14px; font-weight: 500; }
+    .info-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px; }
+    .info-value { font-size: 14px; font-weight: 400; }
 
     .token-box {
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: var(--radius);
       padding: 14px;
       margin-top: 16px;
     }
 
-    .token-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+    .token-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px; }
 
     .token-value {
       font-family: 'Courier New', monospace;
@@ -619,7 +622,7 @@
     clearAlert('login-alert');
 
     try {
-      const res  = await fetch(`${BASE_URL}/users/login`, {
+      const res  = await fetch(`${BASE_URL}/auth/login`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ email, password }),
@@ -662,7 +665,7 @@
     clearAlert('register-alert');
 
     try {
-      const res  = await fetch(`${BASE_URL}/users`, {
+      const res  = await fetch(`${BASE_URL}/auth/register`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ name, lastName, email, phone, role, password }),
