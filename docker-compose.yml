@@ -12,9 +12,12 @@ services:
       NODE_ENV: production
       JWT_EXPIRES_IN: 7d
       BCRYPT_ROUNDS: 10
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_ID}
-      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: ${INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET}
-      INFISICAL_PROJECT_ID: ${INFISICAL_PROJECT_ID}
+      # Credenciais de bootstrap do Infisical (Universal Auth).
+      # A CLI do Infisical le automaticamente destas variaveis para autenticar
+      # e puxar os segredos da nuvem (DATABASE_URL, JWT_SECRET, RABBITMQ_URL).
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_ID: "6cfd96d7-2f68-4d9b-bec4-7247f988ec69"
+      INFISICAL_UNIVERSAL_AUTH_CLIENT_SECRET: "4a75753bd98aca42f8f70c9b2c53b2aaedc432fd37e2117ee892835c2a6f7c80"
+      INFISICAL_PROJECT_ID: "72872433-2578-4da1-8f87-7e54845ecf8d"
     logging:
       driver: "json-file"
       options:

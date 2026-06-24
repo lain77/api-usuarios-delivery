@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('Verificar Repositório') {
+        stage('Verificar Repositorio') {
             steps {
                 checkout([
                     $class: 'GitSCM',
@@ -21,22 +21,9 @@ pipeline {
             }
         }
 
-        stage('Instalar Dependências') {
-            steps {
-                sh '''
-                    rm -rf node_modules
-                    rm -rf package-lock.json
-                    npm install
-                    npx prisma generate
-                '''
-            }
-        }
-
         stage('Build Docker') {
             steps {
-                sh '''
-                    docker compose build --no-cache
-                '''
+                sh 'docker compose build --no-cache'
             }
         }
 
@@ -54,17 +41,20 @@ pipeline {
                 sh 'docker ps'
             }
         }
+
+        stage('Limpeza') {
+            steps {
+                sh 'docker image prune -f || true'
+            }
+        }
     }
 
     post {
         success {
-            echo 'Deploy do microsserviço Usuário realizado com sucesso no Yacht (Linux)!'
+            echo 'Deploy do microsservico Usuario realizado com sucesso no Yacht (Linux)!'
         }
         failure {
-            echo 'Houve um erro durante o deploy do microsserviço Usuário.'
-        }
-        always {
-            sh 'docker image prune -f || true'
+            echo 'Houve um erro durante o deploy do microsservico Usuario.'
         }
     }
 }
