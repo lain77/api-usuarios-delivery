@@ -17,6 +17,11 @@ app.use(express.json());
 
 app.use('/health', healthRoutes);
 app.use('/auth', authRoutes);
+
+app.get(['/', '/login', '/cadastro'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
+});
+
 app.use(errorHandler);
 
 async function start() {
