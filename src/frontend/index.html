@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery · Acesso</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f7f5f1;
+      --surface:   #ffffff;
+      --border:    #e4e0d8;
+      --accent:    #8b6f4e;
+      --accent-dk: #6b5239;
+      --text:      #1c1a17;
+      --muted:     #8a8479;
+      --success:   #4a7c59;
+      --error:     #9e3a38;
+      --radius:    4px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    /* ── Layout ── */
+    .app {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* ── Left panel ── */
+    .panel-left {
+      position: relative;
+      background: #2a2420;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+      overflow: hidden;
+    }
+
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 10% 20%, rgba(139,111,78,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-icon svg { color: #fff; }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .hero {
+      position: relative;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: .9;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 4vw, 64px);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -.5px;
+      margin-bottom: 24px;
+      color: #f0ece4;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: #c9a97a;
+    }
+
+    .hero p {
+      color: #9e9488;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 320px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 36px;
+      position: relative;
+    }
+
+    .stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #c9a97a;
+      letter-spacing: .5px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 300;
+      color: #6e6358;
+      margin-top: 4px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── Right panel ── */
+    .panel-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* ── Tabs ── */
+    .tabs {
+      display: flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 4px;
+      margin-bottom: 32px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Forms ── */
+    .form { display: none; flex-direction: column; gap: 16px; }
+    .form.active { display: flex; }
+
+    .form-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.4px;
+      margin-bottom: 4px;
+    }
+
+    .form-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent);
+    }
+
+    input::placeholder { color: var(--muted); }
+
+    .field { display: flex; flex-direction: column; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* ── Button ── */
+    .btn {
+      padding: 13px;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-top: 4px;
+    }
+
+    .btn:hover  { background: var(--accent-dk); }
+    .btn:active { transform: scale(.98); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* ── Alert ── */
+    .alert {
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .alert.success { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.3); color: var(--success); display: block; }
+    .alert.error   { background: rgba(239,68,68,.1);  border: 1px solid rgba(239,68,68,.3);  color: var(--error);   display: block; }
+
+    /* ── Dashboard ── */
+    .dashboard { display: none; }
+    .dashboard.active { display: block; }
+
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .dash-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .dash-subtitle { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover { background: var(--surface); color: var(--text); }
+
+    .profile-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .profile-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .profile-role {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-customer  { background: rgba(255,85,51,.15); color: var(--accent); }
+    .badge-driver    { background: rgba(34,197,94,.15); color: var(--success); }
+    .badge-admin     { background: rgba(139,92,246,.15); color: #a78bfa; }
+    .badge-merchant  { background: rgba(234,179,8,.15); color: #fbbf24; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .info-item {}
+
+    .info-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px; }
+    .info-value { font-size: 14px; font-weight: 500; }
+
+    .token-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+
+    .token-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 6px; }
+
+    .token-value {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .app { grid-template-columns: 1fr; }
+      .panel-left { display: none; }
+      .panel-right { padding: 32px 20px; align-items: flex-start; padding-top: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Left panel ── -->
+  <div class="panel-left">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </div>
+      <span class="brand-name">DeliveryAPI</span>
+    </div>
+
+    <div class="hero">
+      <div class="hero-label">Plataforma de Delivery</div>
+      <h1>Gerencie<br/>usuários com<br/><em>precisão.</em></h1>
+      <p>API RESTful para cadastro e autenticação de clientes, entregadores e estabelecimentos — construída com Express, Prisma e JWT.</p>
+    </div>
+
+    <div class="stats">
+      <div>
+        <div class="stat-value">JWT</div>
+        <div class="stat-label">Autenticação</div>
+      </div>
+      <div>
+        <div class="stat-value">bcrypt</div>
+        <div class="stat-label">Senhas seguras</div>
+      </div>
+      <div>
+        <div class="stat-value">Prisma</div>
+        <div class="stat-label">ORM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Right panel ── -->
+  <div class="panel-right">
+    <div class="card">
+
+      <!-- Auth views -->
+      <div id="auth-view">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('login')">Entrar</button>
+          <button class="tab" onclick="switchTab('register')">Cadastrar</button>
+        </div>
+
+        <!-- Login -->
+        <div id="form-login" class="form active">
+          <div>
+            <div class="form-title">Bem-vindo de volta</div>
+            <div class="form-subtitle">Acesse sua conta para continuar</div>
+          </div>
+
+          <div class="field">
+            <label>E-mail</label>
+            <input id="login-email" type="email" placeholder="seu@email.com" />
+          </div>
+
+          <div class="field">
+            <label>Senha</label>
+            <input id="login-password" type="password" placeholder="••••••••" />
+          </div>
+
+          <div id="login-alert" class="alert"></div>
+
+          <button class="btn" onclick="handleLogin()">Entrar na conta</button>
+        </div>
+
+        <!-- Register -->
+        <div id="form-register" class="form">
+          <div>
+            <div class="form-title">Criar conta</div>
+            <div class="form-subtitle">Preencha os dados para se registrar</div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Nome</label>
+              <input id="reg-name" type="text" placeholder="João" />
+            </div>
+            <div class="field">
+              <label>Sobrenome</label>
+              <input id="reg-lastname" type="text" placeholder="Silva" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>E-mail</label>
+            <input id="reg-email" type="email" placeholder="seu@email.com" />
+          </div>
+
+          <div class="field">
+            <label>Telefone</label>
+            <input id="reg-phone" type="tel" placeholder="(11) 99999-9999" />
+          </div>
+
+          <div class="field">
+            <label>Tipo de conta</label>
+            <select id="reg-role">
+              <option value="CUSTOMER">Cliente</option>
+              <option value="DRIVER">Entregador</option>
+              <option value="MERCHANT">Estabelecimento</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Senha</label>
+            <input id="reg-password" type="password" placeholder="Mínimo 8 caracteres" />
+          </div>
+
+          <div id="register-alert" class="alert"></div>
+
+          <button class="btn" onclick="handleRegister()">Criar conta</button>
+        </div>
+      </div>
+
+      <!-- Dashboard view -->
+      <div id="dashboard-view" class="dashboard">
+        <div class="dash-header">
+          <div>
+            <div class="dash-title">Minha conta</div>
+            <div class="dash-subtitle">Informações do usuário autenticado</div>
+          </div>
+          <button class="btn btn-sm btn-ghost" onclick="handleLogout()">Sair</button>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-row">
+            <div class="avatar" id="dash-avatar">?</div>
+            <div>
+              <div class="profile-name" id="dash-name">—</div>
+              <div class="profile-role" id="dash-email">—</div>
+            </div>
+            <span class="badge" id="dash-badge">—</span>
+          </div>
+
+          <div class="divider" style="margin-bottom:16px;"></div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Telefone</div>
+              <div class="info-value" id="dash-phone">—</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Tipo</div>
+              <div class="info-value" id="dash-role">—</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">ID</div>
+              <div class="info-value" id="dash-id" style="font-size:12px;font-family:monospace;">—</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Criado em</div>
+              <div class="info-value" id="dash-created">—</div>
+            </div>
+          </div>
+
+          <div class="token-box">
+            <div class="token-label">Token JWT (session)</div>
+            <div class="token-value" id="dash-token">—</div>
+          </div>
+        </div>
+
+        <div id="dash-alert" class="alert"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Config ──────────────────────────────────────────
+  // Troque pela URL da sua API em produção
+  const BASE_URL = 'http://localhost:3000';
+
+  // ── State ───────────────────────────────────────────
+  let token = localStorage.getItem('delivery_token') || null;
+  let user  = JSON.parse(localStorage.getItem('delivery_user') || 'null');
+
+  // ── Init ────────────────────────────────────────────
+  if (token && user) showDashboard(user, token);
+
+  // ── Tabs ────────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register'));
+    });
+    document.getElementById('form-login').classList.toggle('active', tab === 'login');
+    document.getElementById('form-register').classList.toggle('active', tab === 'register');
+    clearAlert('login-alert');
+    clearAlert('register-alert');
+  }
+
+  // ── Alert helpers ───────────────────────────────────
+  function showAlert(id, msg, type) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.className = `alert ${type}`;
+  }
+
+  function clearAlert(id) {
+    const el = document.getElementById(id);
+    el.className = 'alert';
+    el.textContent = '';
+  }
+
+  // ── Login ───────────────────────────────────────────
+  async function handleLogin() {
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    if (!email || !password) {
+      return showAlert('login-alert', 'Preencha e-mail e senha.', 'error');
+    }
+
+    clearAlert('login-alert');
+
+    try {
+      const res  = await fetch(`${BASE_URL}/users/login`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return showAlert('login-alert', data.message || 'Credenciais inválidas.', 'error');
+      }
+
+      token = data.token;
+      user  = data.user ?? data;
+      localStorage.setItem('delivery_token', token);
+      localStorage.setItem('delivery_user', JSON.stringify(user));
+      showDashboard(user, token);
+
+    } catch (err) {
+      showAlert('login-alert', 'Não foi possível conectar à API. Verifique se o servidor está rodando.', 'error');
+    }
+  }
+
+  // ── Register ─────────────────────────────────────────
+  async function handleRegister() {
+    const name     = document.getElementById('reg-name').value.trim();
+    const lastName = document.getElementById('reg-lastname').value.trim();
+    const email    = document.getElementById('reg-email').value.trim();
+    const phone    = document.getElementById('reg-phone').value.trim();
+    const role     = document.getElementById('reg-role').value;
+    const password = document.getElementById('reg-password').value;
+
+    if (!name || !email || !password) {
+      return showAlert('register-alert', 'Nome, e-mail e senha são obrigatórios.', 'error');
+    }
+
+    if (password.length < 8) {
+      return showAlert('register-alert', 'A senha deve ter no mínimo 8 caracteres.', 'error');
+    }
+
+    clearAlert('register-alert');
+
+    try {
+      const res  = await fetch(`${BASE_URL}/users`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ name, lastName, email, phone, role, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        return showAlert('register-alert', data.message || 'Erro ao criar conta.', 'error');
+      }
+
+      showAlert('register-alert', 'Conta criada com sucesso! Faça login para continuar.', 'success');
+      setTimeout(() => switchTab('login'), 1500);
+
+    } catch (err) {
+      showAlert('register-alert', 'Não foi possível conectar à API. Verifique se o servidor está rodando.', 'error');
+    }
+  }
+
+  // ── Dashboard ────────────────────────────────────────
+  function showDashboard(u, tok) {
+    document.getElementById('auth-view').style.display = 'none';
+    document.getElementById('dashboard-view').classList.add('active');
+
+    const fullName = [u.name, u.lastName].filter(Boolean).join(' ') || u.email || '?';
+    const initials = fullName.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+
+    document.getElementById('dash-avatar').textContent = initials;
+    document.getElementById('dash-name').textContent   = fullName;
+    document.getElementById('dash-email').textContent  = u.email || '—';
+    document.getElementById('dash-phone').textContent  = u.phone || '—';
+    document.getElementById('dash-id').textContent     = u.id || '—';
+
+    const roleMap = {
+      CUSTOMER: 'Cliente',
+      DRIVER:   'Entregador',
+      MERCHANT: 'Estabelecimento',
+      ADMIN:    'Administrador',
+    };
+    const roleKey = (u.role || '').toUpperCase();
+    document.getElementById('dash-role').textContent = roleMap[roleKey] || u.role || '—';
+
+    const badgeEl = document.getElementById('dash-badge');
+    const badgeClass = { CUSTOMER: 'badge-customer', DRIVER: 'badge-driver', MERCHANT: 'badge-merchant', ADMIN: 'badge-admin' }[roleKey] || 'badge-customer';
+    badgeEl.textContent = roleMap[roleKey] || u.role || '—';
+    badgeEl.className = `badge ${badgeClass}`;
+
+    if (u.createdAt) {
+      document.getElementById('dash-created').textContent = new Date(u.createdAt).toLocaleDateString('pt-BR');
+    }
+
+    // Show token truncated
+    document.getElementById('dash-token').textContent = tok ? tok.slice(0, 80) + '…' : '—';
+  }
+
+  // ── Logout ───────────────────────────────────────────
+  function handleLogout() {
+    localStorage.removeItem('delivery_token');
+    localStorage.removeItem('delivery_user');
+    token = null;
+    user  = null;
+    document.getElementById('dashboard-view').classList.remove('active');
+    document.getElementById('auth-view').style.display = '';
+    switchTab('login');
+  }
+
+  // ── Enter key support ────────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const loginActive = document.getElementById('form-login').classList.contains('active');
+    if (loginActive) handleLogin();
+    else handleRegister();
+  });
+</script>
+
+</body>
+</html>
