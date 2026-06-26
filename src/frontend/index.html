@@ -520,6 +520,7 @@
                   <option value="MOTO">Moto</option>
                   <option value="CARRO">Carro</option>
                   <option value="BICICLETA">Bicicleta</option>
+                  <option value="A_PE">A pé</option>
                 </select>
               </div>
               <div class="field">
@@ -696,8 +697,8 @@
       user_name:     name,
       user_email:    email,
       user_password: password,
-      user_cpf:      cpf,
-      user_telefone: phone,
+      user_cpf:      cpf.replace(/\D/g, ''),
+      user_telefone: phone.replace(/\D/g, ''),
     };
 
     let endpoint;
@@ -705,21 +706,27 @@
     if (role === 'ENTREGADOR') {
       endpoint = '/auth/registro/entregador';
 
-      const cnhNumero    = document.getElementById('reg-cnh-numero').value.trim();
+      const cnhNumero    = document.getElementById('reg-cnh-numero').value.replace(/\D/g, '');
       const cnhCategoria = document.getElementById('reg-cnh-categoria').value;
       const cnhValidade  = document.getElementById('reg-cnh-validade').value;
       const veiculoTipo  = document.getElementById('reg-veiculo-tipo').value;
-      const veiculoPlaca = document.getElementById('reg-veiculo-placa').value.trim();
+      const veiculoPlaca = document.getElementById('reg-veiculo-placa').value.trim().toUpperCase();
 
-      if (!cnhNumero || !cnhValidade || !veiculoPlaca) {
-        return showAlert('register-alert', 'Preencha CNH, validade e placa do veículo.', 'error');
+      const requerPlaca = ['MOTO', 'CARRO'].includes(veiculoTipo);
+
+      if (!cnhNumero || !cnhValidade) {
+        return showAlert('register-alert', 'Preencha número e validade da CNH.', 'error');
+      }
+
+      if (requerPlaca && !veiculoPlaca) {
+        return showAlert('register-alert', 'Placa é obrigatória para moto ou carro.', 'error');
       }
 
       body.entregador_cnh_numero    = cnhNumero;
       body.entregador_cnh_categoria = cnhCategoria;
       body.entregador_cnh_validade  = cnhValidade;
       body.entregador_veiculo_tipo  = veiculoTipo;
-      body.entregador_veiculo_placa = veiculoPlaca;
+      if (veiculoPlaca) body.entregador_veiculo_placa = veiculoPlaca;
 
     } else {
       endpoint = '/auth/registro/cliente';
